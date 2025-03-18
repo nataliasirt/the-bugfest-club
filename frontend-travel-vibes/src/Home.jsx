@@ -64,7 +64,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Stack on Mobile */}
+      {/* Mobile */}
       <div className="block sm:hidden mt-4">
         <div className="w-full h-[300px] overflow-hidden mb-4">
           <img
