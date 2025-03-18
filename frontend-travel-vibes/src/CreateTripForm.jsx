@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const CreateTripForm = () => {
-  
   const [trips, setTrips] = useState([]);
 
-  // State to store form input values
   const [formData, setFormData] = useState({
     startingLocation: '',
     budget: '',
@@ -12,17 +11,14 @@ const CreateTripForm = () => {
     days: '',
   });
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     setTrips([...trips, formData]);
-    // Reset form after submission
     setFormData({
       startingLocation: '',
       budget: '',
@@ -106,15 +102,22 @@ const CreateTripForm = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition mb-0"
-          >
-            ADD TRIP
-          </button>
+          <div className="space-y-3"> {/* Added wrapper div with space-y-3 for button spacing */}
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition"
+            >
+              ADD TRIP
+            </button>
+            
+            <Link to="/">
+              <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">
+                BACK TO HOME
+              </button>
+            </Link>
+          </div>
         </form>
 
-        {/* Display added trips */}
         {trips.length > 0 && (
           <div className="mt-6 text-gray-800">
             <h3 className="text-lg font-semibold mb-2">Your Trips</h3>
