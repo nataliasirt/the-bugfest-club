@@ -12,7 +12,7 @@ public class TripService {
     @Autowired
     private TripRepository tripRepository;
 
-    public Trip saveTrip(Trip trip){
+    public Trip saveTrip(Trip trip) {
         return tripRepository.save(trip);
     }
 
