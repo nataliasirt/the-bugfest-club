@@ -48,11 +48,6 @@ throw new EntityNotFoundException("Destination not found with id"+id);
               throw new EntityNotFoundException("Destination not found with id: " + id);
           }
             Destination destination = results.get();
-            destination.setDescription(editDestination.getDescription());
-            destination.setCountry(editDestination.getCountry());
-            destination.setRegion(editDestination.getRegion());
-            destination.setImageUrl(editDestination.getImageUrl());
-
           if (editDestination.getLocations() != null) {
               destination.getLocations().clear(); // Remove old locations
               destination.getLocations().addAll(editDestination.getLocations()); // Add new locations

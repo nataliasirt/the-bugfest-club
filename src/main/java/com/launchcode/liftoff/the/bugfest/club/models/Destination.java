@@ -19,11 +19,6 @@ public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String country;
-    private String region;
-    private String description;
-    private String imageUrl;
-
     @OneToMany(mappedBy = "destination",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Location> locations = new ArrayList<>();
 
