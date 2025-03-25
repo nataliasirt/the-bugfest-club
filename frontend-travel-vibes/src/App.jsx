@@ -1,7 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import CreateTripForm from "./CreateTripForm";
+import Explore from "./Explore";
+
 import NavBar from "./components/NavBar";
+import TripCard from "./components/TripCard";
 
 function App() {
   return (
@@ -12,10 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-trip" element={<CreateTripForm />} />
-            <Route
-              path="/search"
-              element={<div>Search Page (Coming Soon)</div>}
-            />
+            <Route path="/explore" element={<Explore />} />
             <Route
               path="/login"
               element={<div>Login Page (Coming Soon)</div>}

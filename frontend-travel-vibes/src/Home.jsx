@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import beachSunset from "./assets/images/beach-sunset1.svg";
 
 const Home = () => {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      {/* Navigation Bar */}
+      {/* Navigation Bar */}{" "}
+      {/* 
       <nav className="w-full max-w-[1280px] flex justify-between items-center py-4 border-b border-gray-300 fixed top-0 left-0 right-0 bg-white z-10">
         <div className="flex items-center">
           <div className="w-6 h-6 bg-gray-800 rounded-full mr-2"></div>
@@ -25,8 +26,7 @@ const Home = () => {
             Login
           </a>
         </div>
-      </nav>
-
+      </nav> */}
       {/* Main Content Layout */}
       <div className="flex items-center justify-center w-full max-w-[1280px] mt-20 space-x-4 sm:space-x-8">
         {/* Left Side - SVG Image */}
@@ -44,9 +44,8 @@ const Home = () => {
             Travel for how you want to feel, not where you want to go
           </h1>
           <p className="text-lg text-gray-600 text-center mb-6">
-            Discover destinations that match desired emotional experiences.
-            No more decision overload, just personalized travel based on your
-            vibe.
+            Discover destinations that match desired emotional experiences. No
+            more decision overload, just personalized travel based on your vibe.
           </p>
 
           <div className="flex items-center space-x-3">
@@ -63,7 +62,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
       {/* Mobile */}
       <div className="block sm:hidden mt-4">
         <div className="w-full h-[300px] overflow-hidden mb-4">

@@ -12,9 +12,9 @@ const NavBar = () => {
         <Link to="/create-trip" className="text-blue-600 hover:underline">
           Create Trip
         </Link>
-        <a href="/search" className="text-blue-600 hover:underline">
-          Search
-        </a>
+        <Link to="/explore" className="text-blue-600 hover:underline">
+          Explore
+        </Link>
         <a href="/about" className="text-blue-600 hover:underline">
           About
         </a>
