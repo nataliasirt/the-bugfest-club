@@ -1,68 +1,72 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const CreateTripForm = () => {
   const [trips, setTrips] = useState([]);
   const [formData, setFormData] = useState({
-    startingLocation: '',
-    budget: '',
-    vibe: '',
-    days: '',
+    startingLocation: "",
+    budget: "",
+    vibe: "",
+    days: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     // Convert budget to float and days to integer when updating state
-    const parsedValue = name === 'budget' ? parseFloat(value) || '' :
-                       name === 'days' ? parseInt(value) || '' : value;
+    const parsedValue =
+      name === "budget"
+        ? parseFloat(value) || ""
+        : name === "days"
+        ? parseInt(value) || ""
+        : value;
     setFormData({ ...formData, [name]: parsedValue });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Prepare data for API call
     const data = {
       startingLocation: formData.startingLocation,
       budget: parseFloat(formData.budget),
       vibe: formData.vibe,
-      days: parseInt(formData.days)
+      days: parseInt(formData.days),
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/trips', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/api/trips", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
         const responseData = await response.text();
-        console.log('Success:', responseData);
+        console.log("Success:", responseData);
         // Add the trip to local state
         setTrips([...trips, formData]);
         // Reset form
         setFormData({
-          startingLocation: '',
-          budget: '',
-          vibe: '',
-          days: ''
+          startingLocation: "",
+          budget: "",
+          vibe: "",
+          days: "",
         });
-        alert('Trip details sent successfully!');
+        alert("Trip details sent successfully!");
       } else {
-        console.error('Error:', response.status);
-        alert('Failed to send trip details.');
+        console.error("Error:", response.status);
+        alert("Failed to send trip details.");
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while sending trip details.');
+      console.error("Error:", error);
+      alert("An error occurred while sending trip details.");
     }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 bg-white z-10">
+    <div className="pt-20 flex items-center justify-center p-4 bg-white">
       <div className="bg-white rounded-[25px] border border-gray-300 shadow-lg p-5 pb-5 w-[400px] max-h-screen overflow-y-auto">
         <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
           Plan New Trip
@@ -143,7 +147,7 @@ const CreateTripForm = () => {
             >
               ADD TRIP
             </button>
-           
+
             <Link to="/">
               <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">
                 BACK TO HOME
