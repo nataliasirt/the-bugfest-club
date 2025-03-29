@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LocationRepository extends CrudRepository<Location, Long> {
+//    List<Location> findByVibe(String vibe);
+
+
 }

@@ -28,5 +28,6 @@ public class Trip {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "destination_id", referencedColumnName = "id")
     private Destination destination;
+
 }
 
