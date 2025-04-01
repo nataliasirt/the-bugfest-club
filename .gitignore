@@ -30,3 +30,4 @@ build
 .env
 .vscode/
 backend/bin/
+node_modules/
