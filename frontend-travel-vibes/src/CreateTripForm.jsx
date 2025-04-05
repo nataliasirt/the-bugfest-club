@@ -12,14 +12,7 @@ const CreateTripForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Convert budget to float and days to integer when updating state
-    const parsedValue =
-      name === "budget"
-        ? parseFloat(value) || ""
-        : name === "days"
-        ? parseInt(value) || ""
-        : value;
-    setFormData({ ...formData, [name]: parsedValue });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -66,42 +59,54 @@ const CreateTripForm = () => {
   };
 
   return (
-    <div className="pt-20 flex items-center justify-center p-4 bg-white">
-      <div className="bg-white rounded-[25px] border border-gray-300 shadow-lg p-5 pb-5 w-[400px] max-h-screen overflow-y-auto">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+    <div className="max-w-4xl mx-auto px-5 bg-white">
+      <div className="w-full md:w-3/5 bg-white rounded-lg border border-gray-100 p-6 shadow-sm">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           Plan New Trip
         </h2>
 
-        <form className="space-y-3 text-left" onSubmit={handleSubmit}>
+        <form className="space-y-4 text-left" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Starting Location:
             </label>
-            <input
-              type="text"
+            <select
               name="startingLocation"
               value={formData.startingLocation}
               onChange={handleChange}
-              placeholder="e.g., New York, NY"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border rborder-gray-300 rounded-md focus:ring-2 bg-gray-50 text-gray-600"
               required
-            />
+            >
+              <option value="">Select starting location:</option>
+              <option value="Northeast_US">Northeast</option>
+              <option value="MidAtlantic_US">Mid-Atlantic</option>
+              <option value="Southeast_US">Southeast</option>
+              <option value="Deep_South_US">Deep South</option>
+              <option value="Texas_Oklahoma_US">Texas & Oklahoma</option>
+              <option value="Rocky_Mountain_US">Rocky Mountain</option>
+              <option value="California_Coast_US">California Coast</option>
+              <option value="Pacific_Northwest_US">Pacific Northwest</option>
+              <option value="Hawaii_US">Hawaii</option>
+              <option value="Alaska_US">Alaska</option>
+            </select>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Budget ($):
             </label>
-            <input
-              type="number"
+            <select
               name="budget"
               value={formData.budget}
               onChange={handleChange}
-              placeholder="e.g., 1000"
-              min="0"
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
-            />
+            >
+              <option value="">Select budget:</option>
+              <option value="500">Budget</option>
+              <option value="2000">Mid-Range</option>
+              <option value="5000">Luxury</option>
+            </select>
           </div>
 
           <div>
@@ -115,12 +120,16 @@ const CreateTripForm = () => {
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             >
-              <option value="">Select a vibe</option>
-              <option value="relaxing">Relaxing</option>
-              <option value="adventurous">Adventurous</option>
-              <option value="cultural">Cultural</option>
-              <option value="party">Party</option>
-              <option value="romantic">Romantic</option>
+              <option value="">Select a vibe:</option>
+              <option value="inspired_and_creative">Inspired & Creative</option>
+              <option value="refreshed">Refreshed</option>
+              <option value="grounded_and_connected">
+                Grounded & Connected
+              </option>
+              <option value="accomplished">Accomplished</option>
+              <option value="transformed_and_enlightened">
+                Transformed & Enlightened
+              </option>
             </select>
           </div>
 
@@ -128,16 +137,20 @@ const CreateTripForm = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Number of Days:
             </label>
-            <input
-              type="number"
+            <select
               name="days"
               value={formData.days}
               onChange={handleChange}
-              placeholder="e.g., 7"
-              min="1"
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
-            />
+            >
+              <option value="">Select duration:</option>
+              <option value="1">Overnight</option>
+              <option value="3">Weekend (2-3 days)</option>
+              <option value="5">Extended Weekend (3-5 days)</option>
+              <option value="7">Week-long (7 days)</option>
+              <option value="10">Extended (10+ days)</option>
+            </select>
           </div>
 
           <div className="space-y-10">
