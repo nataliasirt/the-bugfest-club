@@ -5,10 +5,10 @@ const TripDetail = () => {
   return (
     <div className="max-w-4xl mx-auto overflow-hidden border bg-white">
       <div className="px-20 py-10">
-        {/* Tags at top */}
+        {/* Top tag */}
         <div className="flex mb-4">
           <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-            Adventure {/* Vibe - from User Form */}
+            Adventure {/* From User Form: Vibe */}
           </span>
         </div>
 
@@ -21,7 +21,8 @@ const TripDetail = () => {
             </h2>
             <p className="text-gray-600 mb-4">
               Costa Rica offers the perfect blend of adventure and relaxation in
-              a biodiverse natural setting.
+              a biodiverse natural setting.{" "}
+              {/* Trip Description (short) - from OpenAI */}
             </p>
 
             <p className="text-gray-600 mb-6">
@@ -31,11 +32,12 @@ const TripDetail = () => {
               Museum, Costa Rica is known for its beaches, volcanoes, and
               biodiversity. Roughly a quarter of its area is made up of
               protected jungle, teeming with wildlife including spider monkeys
-              and quetzal birds.
+              and quetzal birds.{" "}
+              {/* Trip Description (long) - from OpenAI - can keep or not */}
             </p>
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3">
-              Top Activities
+              Top Activities {/* Activities - from OpenAI */}
             </h3>
             <ul className="space-y-2">
               <li className="flex items-center text-gray-600 mb-3">
@@ -71,25 +73,28 @@ const TripDetail = () => {
                 <div className="font-medium mb-1">
                   <div>
                     <h4 className="font-medium text-gray-800">
-                      Best Time to Visit
-                    </h4>
+                      Best Time to Visit:
+                    </h4>{" "}
+                    {/* Time to visit - from OpenAI - limited to seasons */}
                     <p className="text-sm text-gray-600 mb-3">Winter</p>
                   </div>
                 </div>
 
                 <div className="font-medium mb-1">
                   <div>
-                    <h4 className="font-medium text-gray-800">Duration</h4>
+                    <h4 className="font-medium text-gray-800">Duration:</h4>
                     <p className="text-sm text-gray-600 mb-3">
                       Extended Weekend
-                    </p>
+                    </p>{" "}
+                    {/* Duration - from User Form */}
                   </div>
                 </div>
 
                 <div className="font-medium mb-1">
                   <div>
-                    <h4 className="font-medium text-gray-800">Budget</h4>
-                    <p className="text-sm text-gray-600 mb-3">Mid Range</p>
+                    <h4 className="font-medium text-gray-800">Budget:</h4>
+                    <p className="text-sm text-gray-600 mb-3">Mid Range</p>{" "}
+                    {/* Budget - from user form */}
                   </div>
                 </div>
               </div>
