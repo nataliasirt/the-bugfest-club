@@ -59,22 +59,22 @@ const CreateTripForm = () => {
   };
 
   return (
-    <div className="pt-20 flex items-center justify-center p-4 bg-white">
-      <div className="bg-white rounded-[25px] border border-gray-300 shadow-lg p-5 pb-5 w-[400px] max-h-screen overflow-y-auto">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+    <div className="max-w-4xl mx-auto px-5 bg-white">
+      <div className="w-full md:w-3/5 bg-white rounded-lg border border-gray-100 p-6 shadow-sm">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           Plan New Trip
         </h2>
 
-        <form className="space-y-3 text-left" onSubmit={handleSubmit}>
+        <form className="space-y-4 text-left" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Starting Location:
             </label>
             <select
               name="startingLocation"
               value={formData.startingLocation}
               onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border rborder-gray-300 rounded-md focus:ring-2 bg-gray-50 text-gray-600"
               required
             >
               <option value="">Select starting location:</option>
