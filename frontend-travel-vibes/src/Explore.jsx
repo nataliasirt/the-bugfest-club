@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Explore = () => {
   return (
-    <div className="bg-white rounded-[25px] border border-gray-300 shadow-lg p-8 w-[600px] sm:rounded-l-[25px]">
+    <div className="bg-white p-8 w-[1200px] ">
       <h1 className="text-4xl font-bold text-gray-900 mb-3 text-center">
         Discover Your Perfect Vibe
       </h1>
