@@ -26,10 +26,14 @@ public class TripController {
     public TripController(TripService tripService) {
         this.tripService = tripService;
     }
+
+
+
     @PostMapping("/trips")
     public ResponseEntity<String> createTrip(@RequestBody Trip trip) {
         return tripService.createTrip(trip); // Returning the ResponseEntity from the service
     }
+
     @GetMapping("/trips")
     public Iterable<Trip> getAllTrips(){
         return tripService.getAllTrips();

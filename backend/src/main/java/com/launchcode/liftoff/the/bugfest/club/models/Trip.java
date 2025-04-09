@@ -22,7 +22,7 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String startingLocation;
-    private double budget;
+    private String budget;
     private String vibe;
     private int days;
     @OneToOne(cascade = CascadeType.ALL)

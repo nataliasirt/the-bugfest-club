@@ -14,4 +14,5 @@ public interface TripRepository extends CrudRepository<Trip, Long> {
 //                       @Param("days") int days);
 
     boolean existsByStartingLocationAndDaysAndVibe(String startingLocation, int days, String vibe);
+//    List<Trip> findByUserId(Long userId);
 }

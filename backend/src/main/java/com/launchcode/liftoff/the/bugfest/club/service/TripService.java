@@ -21,11 +21,14 @@ public class TripService {
 
     @Autowired
     private final DestinationRepository destinationRepository;
+//    @Autowired
+//    private final UserRepository userRepository;
 
 
     public TripService(TripRepository tripRepository, DestinationRepository destinationRepository) {
         this.tripRepository = tripRepository;
         this.destinationRepository = destinationRepository;
+
     }
 
     public ResponseEntity<String> createTrip(Trip trip) {
@@ -55,5 +58,16 @@ public class TripService {
         }
         throw new RuntimeException("No locations found for the vibe: " + vibe);
     }
+
+//    public Trip saveTripForUser(Trip trip, Long userId) {
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//        trip.setUser(user);
+//        return tripRepository.save(trip);
+//    }
+
+//    public List<Trip> getTripsByUserId(Long userId) {
+//        return tripRepository.findByUserId(userId);
+//    }
 
 }
