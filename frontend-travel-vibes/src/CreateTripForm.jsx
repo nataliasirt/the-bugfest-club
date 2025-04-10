@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateTripForm = () => {
   const [trips, setTrips] = useState([]);
@@ -9,6 +10,8 @@ const CreateTripForm = () => {
     vibe: "",
     days: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,11 +35,12 @@ const CreateTripForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        const responseData = await response.text();
+        const responseData = await response.json();
+        const travelData = responseData.data;
         console.log("Success:", responseData);
         // Add the trip to local state
         setTrips([...trips, formData]);
@@ -47,6 +51,11 @@ const CreateTripForm = () => {
           vibe: "",
           days: "",
         });
+
+        navigate("/trip", {
+          state: { tripData: travelData, formData: formData },
+        });
+
         alert("Trip details sent successfully!");
       } else {
         console.error("Error:", response.status);

@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 
 const TripDetail = () => {
-  const location = useLocation();
-  const { tripData, formData } = location.state || {};
   return (
     <div className="max-w-4xl mx-auto overflow-hidden border bg-white">
       <div className="px-20 py-10">
@@ -19,8 +16,8 @@ const TripDetail = () => {
           {/* Left side - Description */}
           <div className="w-full mb-6 md:w-3/5 md:mb-0">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              {tripData?.tripTitle || "Trip Title"}{" "}
-              {/* Trip Title - from OpenAI */}
+              Lush rainforests, wildlife encounters, and adventure activities in
+              a sustainable paradise. {/* Trip Title - from OpenAI */}
             </h2>
             <p className="text-gray-600 mb-4">
               Costa Rica offers the perfect blend of adventure and relaxation in

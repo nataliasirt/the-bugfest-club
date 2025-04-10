@@ -15,13 +15,17 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-trip" element={<CreateTripForm />} />
-            <Route path="/explore" element={<TripDetail />} />
+            <Route path="/trip" element={<TripDetail />} />
             <Route
               path="/login"
               element={<div>Login Page (Coming Soon)</div>}
             />
             <Route
               path="/about"
+              element={<div>About Page (Coming Soon)</div>}
+            />
+            <Route
+              path="/explore"
               element={<div>About Page (Coming Soon)</div>}
             />
             {/* Add a catch-all route for undefined paths */}
