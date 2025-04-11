@@ -15,7 +15,8 @@ Setup Instructions:
 - npm install
 - npm install express
 - npm install cors
-- npm intstall openai
+- npm install openai
+- npm install axios
 
 3.  OpenAI API Key Setup
 

@@ -48,27 +48,14 @@ const TripDetail = () => {
                 <span className="mr-2">⭐</span>
                 <span>
                   <b>Highlight: {} </b>
-                  {tripData.topActivities[0].name || "Activity Name"}:{" "}
-                  {tripData.topActivities[0].hook || "Activity Description"}
+                  {tripData.topActivity}
                 </span>
               </li>
               <li className="flex items-center text-gray-600 mb-3">
                 <span className="mr-2">⭐</span>
                 <span>
                   <b>Experience: {} </b>
-                  {tripData.topActivities[1].name || "Activity Name"}:{" "}
-                  {tripData.topActivities[1].hook || "Activity Description"}
-                </span>
-              </li>
-              <li className="flex items-center text-gray-600 mb-3">
-                <span className="mr-2">⭐</span>
-                <span>
-                  <b>Dine: {} </b>
-                  {tripData.restaurantRecommendations[0].name ||
-                    "Restaurant Name"}
-                  :{" "}
-                  {tripData.restaurantRecommendations[0].hook ||
-                    "Restaurnat Description"}
+                  {tripData.mainAttraction || "Activity Name"}
                 </span>
               </li>
             </ul>

@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
+const axios = require("axios");
 
 const app = express();
 
 // Create OpenAI client
 const openai = new OpenAI({
-  apiKey: "your-api-key-here", // Replace with your actual OpenAI API key
+  apiKey: "sk-proj-YOUR KEY HERE", // Replace with your actual OpenAI API key
 });
 
 app.use(cors());
@@ -24,14 +25,10 @@ If you return anything other than a valid JSON object using this exact structure
     "location": "City and State",
     "description": "A brief, Bourdain-style description of the trip",
     "bestTimeToVisit": "One of: Winter, Spring, Summer, Fall",
-    "topActivity": "Return a top activity with the name and a one sentence Bourdain-style hook,
-    "mainAttraction: "A single string describing the main attraction in this format: 'Attraction name: One sentence hook about the experience'",
-    "restaurantRecommendations": [
-        {
-            "name": "Restaurant name",
-            "hook": "One sentence Bourdain-style hook about why this place is worth visiting"
-        }
-    ]
+    "topActivity": "Return a top activity with the name and a one sentence Bourdain-style hook in this format: 'Name: One sentence hook'",
+    "mainAttraction": "A single string describing the main attraction in this format: 'Attraction name: One sentence hook about the experience'",
+    "vibeInspiration": "A single string describing an attraction based on the provided vibe in this format: 'Location to visit: One sentence hook about the experience'"
+    
 }`;
 
   try {
@@ -85,5 +82,5 @@ app.post("/api/trips", async (req, res) => {
 });
 
 app.listen(8080, () => {
-  console.log("Server running on port 8080");
+  console.log("Server running on port 3001");
 });
