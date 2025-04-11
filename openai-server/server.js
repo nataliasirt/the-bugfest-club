@@ -18,17 +18,14 @@ async function generateTravelPlan(budget, days, startingLocation, vibe) {
   const prompt = `Create a travel plan in Anthony Bourdain's style for a ${days}-day trip starting from ${startingLocation} with a budget of $${budget}. The desired vibe is ${vibe}.
 
 Return the response as a JSON object with the following exact structure:
+If you return anything other than a valid JSON object using this exact structure, your answer will be rejected.
 {
     "tripTitle": "A short, catchy title",
-    "location": "The main destination",
+    "location": "City and State",
     "description": "A brief, Bourdain-style description of the trip",
-    "bestTimeToVisit": "One of: winter, spring, summer, fall",
-    "topActivities": [
-        {
-            "name": "Activity name",
-            "hook": "One sentence Bourdain-style hook about why this activity is worth doing"
-        }
-    ],
+    "bestTimeToVisit": "One of: Winter, Spring, Summer, Fall",
+    "topActivity": "Return a top activity with the name and a one sentence Bourdain-style hook,
+    "mainAttraction: "A single string describing the main attraction in this format: 'Attraction name: One sentence hook about the experience'",
     "restaurantRecommendations": [
         {
             "name": "Restaurant name",
