@@ -54,6 +54,8 @@ public class User {
     private AuthProvider provider;
 
     private String providerId;
+
+
     @JsonBackReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Trip> trips = new ArrayList<>();

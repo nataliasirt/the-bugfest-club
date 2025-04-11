@@ -15,20 +15,17 @@ public class TripService {
 
     @Autowired
     private final TripRepository tripRepository;
-//
-//    @Autowired
-//    private final DestinationRepository destinationRepository;
+
     @Autowired
     private final UserRepository userRepository;
 
 
-    public TripService(TripRepository tripRepository,UserRepository userRepository) {
+    public TripService(TripRepository tripRepository, UserRepository userRepository) {
         this.tripRepository = tripRepository;
-        this.userRepository=userRepository;
-
+        this.userRepository = userRepository;
     }
 
-
+//
     @Transactional
     public Trip saveTripForUser(Long userId, Trip trip) {
         User user = userRepository.findById(userId)
