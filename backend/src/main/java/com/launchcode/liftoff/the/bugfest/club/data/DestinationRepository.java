@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DestinationRepository extends CrudRepository<Destination, Long> {
+    Destination findByVibe(String vibe);
 }
