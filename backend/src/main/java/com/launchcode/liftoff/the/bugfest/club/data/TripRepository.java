@@ -4,6 +4,8 @@ import com.launchcode.liftoff.the.bugfest.club.models.Trip;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TripRepository extends CrudRepository<Trip, Long> {
 
@@ -13,6 +15,6 @@ public interface TripRepository extends CrudRepository<Trip, Long> {
 //                       @Param("vibe") String vibe,
 //                       @Param("days") int days);
 
-    boolean existsByStartingLocationAndDaysAndVibe(String startingLocation, int days, String vibe);
-//    List<Trip> findByUserId(Long userId);
+    //boolean existsByStartingLocationAndDaysAndVibe(String startingLocation, int days, String vibe);
+    List<Trip> findByUserId(Long userId);
 }

@@ -30,7 +30,7 @@ const CreateTripForm = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/trips", {
+      const response = await fetch("http://localhost:8080/api/trips/user/2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
