@@ -14,9 +14,11 @@ import CreateTripForm from "./CreateTripForm";
 import TripDetail from "./TripDetail";
 import NavBar from "./components/NavBar";
 import './App.css';
+
 import WelcomeDashboard from './components/DashBoard';
 import { toast } from 'react-toastify';
 import TripPage from "./TripPage";
+
 
 const PrivateRoute = ({ authenticated, children }) => {
   const navigate = useNavigate();
@@ -79,8 +81,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-trip" element={<CreateTripForm />} />
-            <Route path="/trip" element={<TripPage />} />
+
+
             <Route path="/explore" element={<TripDetail />} />
+            <Route path="/trip" element={<TripDetail />} />
             <Route path="/login" element={<Login authenticated={authenticated} />} />
             <Route path="/signup" element={<Signup authenticated={authenticated} />} />
             <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
@@ -94,6 +98,7 @@ function App() {
               </PrivateRoute>} />
             <Route path="/about" element={<div>About Page (Coming Soon)</div>} />
             <Route path="*" element={<NotFound />} />
+              
           </Routes>
         </main>
       </div>

@@ -35,7 +35,7 @@ const CreateTripForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {

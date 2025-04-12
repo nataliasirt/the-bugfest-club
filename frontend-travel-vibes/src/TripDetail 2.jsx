@@ -1,29 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 
 const TripDetail = () => {
-  const location = useLocation();
-  const { tripData, formData } = location.state || {};
   return (
     <div className="max-w-4xl mx-auto overflow-hidden border bg-white">
       <div className="px-20 py-10">
         {/* Top tag */}
         <div className="flex mb-4">
           <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-            The Vibe:{" "}
-            {formData?.vibe === "inspired_and_creative"
-              ? "Inspired & Creative"
-              : formData?.vibe === "refreshed"
-              ? "Refreshed"
-              : formData?.vibe === "grounded_and_connected"
-              ? "Grounded & Connected"
-              : formData?.vibe === "accomplished"
-              ? "Accomplished"
-              : formData?.vibe === "transformed_and_enlightened"
-              ? "Transformed & Enlightened"
-              : "Your Vibe"}
-            {/* From User Form: Vibe */}
+            Adventure {/* From User Form: Vibe */}
           </span>
         </div>
 
@@ -31,32 +16,45 @@ const TripDetail = () => {
           {/* Left side - Description */}
           <div className="w-full mb-6 md:w-3/5 md:mb-0">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              {tripData?.tripTitle || "Trip Title"} in{" "}
-              {tripData?.location || "Trip Location"}{" "}
-              {/* Trip Title - from OpenAI */}
+              Lush rainforests, wildlife encounters, and adventure activities in
+              a sustainable paradise. {/* Trip Title - from OpenAI */}
             </h2>
             <p className="text-gray-600 mb-4">
-              {tripData?.description || "Trip Description"}{" "}
+              Costa Rica offers the perfect blend of adventure and relaxation in
+              a biodiverse natural setting.{" "}
               {/* Trip Description (short) - from OpenAI */}
             </p>
 
+            <p className="text-gray-600 mb-6">
+              Costa Rica is a rugged, rainforested Central American country with
+              coastlines on the Caribbean and Pacific. Though its capital, San
+              Jose, is home to cultural institutions like the Pre-Columbian Gold
+              Museum, Costa Rica is known for its beaches, volcanoes, and
+              biodiversity. Roughly a quarter of its area is made up of
+              protected jungle, teeming with wildlife including spider monkeys
+              and quetzal birds.{" "}
+              {/* Trip Description (long) - from OpenAI - can keep or not */}
+            </p>
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3">
-              What To Do {/* Activities - from OpenAI */}
+              Top Activities {/* Activities - from OpenAI */}
             </h3>
             <ul className="space-y-2">
               <li className="flex items-center text-gray-600 mb-3">
                 <span className="mr-2">⭐</span>
-                <span>
-                  <b>Highlight: {} </b>
-                  {tripData.topActivity}
-                </span>
+                <span>Zip-lining through rainforest canopies</span>
               </li>
               <li className="flex items-center text-gray-600 mb-3">
                 <span className="mr-2">⭐</span>
-                <span>
-                  <b>Experience: {} </b>
-                  {tripData.mainAttraction || "Activity Name"}
-                </span>
+                <span>Wildlife spotting in national parks</span>
+              </li>
+              <li className="flex items-center text-gray-600 mb-3">
+                <span className="mr-2">⭐</span>
+                <span>Surfing on Pacific beaches</span>
+              </li>
+              <li className="flex items-center text-gray-600 mb-3">
+                <span className="mr-2">⭐</span>
+                <span>Relaxing in natural hot springs</span>
               </li>
             </ul>
           </div>
@@ -78,9 +76,7 @@ const TripDetail = () => {
                       Best Time to Visit:
                     </h4>{" "}
                     {/* Time to visit - from OpenAI - limited to seasons */}
-                    <p className="text-sm text-gray-600 mb-3 capitalize">
-                      {tripData?.bestTimeToVisit || "Best Time to Visit"}
-                    </p>
+                    <p className="text-sm text-gray-600 mb-3">Winter</p>
                   </div>
                 </div>
 
@@ -88,17 +84,7 @@ const TripDetail = () => {
                   <div>
                     <h4 className="font-medium text-gray-800">Duration:</h4>
                     <p className="text-sm text-gray-600 mb-3">
-                      {formData?.days === "1"
-                        ? "Overnight"
-                        : formData?.days === "3"
-                        ? "Weekend"
-                        : formData?.days === "5"
-                        ? "Extended Weekend"
-                        : formData?.days === "7"
-                        ? "Week-long"
-                        : formData?.days === "10"
-                        ? "Extended"
-                        : "Trip Length"}
+                      Extended Weekend
                     </p>{" "}
                     {/* Duration - from User Form */}
                   </div>
@@ -107,15 +93,7 @@ const TripDetail = () => {
                 <div className="font-medium mb-1">
                   <div>
                     <h4 className="font-medium text-gray-800">Budget:</h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      {formData?.budget === "500"
-                        ? "Budget"
-                        : formData?.budget === "2000"
-                        ? "Mid-Range"
-                        : formData?.budget === "5000"
-                        ? "Luxury"
-                        : "Amount to spend"}
-                    </p>{" "}
+                    <p className="text-sm text-gray-600 mb-3">Mid Range</p>{" "}
                     {/* Budget - from user form */}
                   </div>
                 </div>
