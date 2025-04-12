@@ -2,6 +2,7 @@ package com.launchcode.liftoff.the.bugfest.club.controllers;
 
 import com.launchcode.liftoff.the.bugfest.club.models.Trip;
 import com.launchcode.liftoff.the.bugfest.club.service.TripService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +18,7 @@ import java.util.List;
 @CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/api/trips")
+@Slf4j
 public class TripController {
 
     @Autowired
@@ -29,6 +31,7 @@ public class TripController {
 
     @PostMapping("/user/{userId}")
     public ResponseEntity<Trip> createTripForUser(@PathVariable Long userId, @RequestBody Trip trip) {
+        log.info("Inside createTripForUser method in TripController class");
         Trip savedTrip = tripService.saveTripForUser(userId, trip);
         return ResponseEntity.ok(savedTrip);
     }
