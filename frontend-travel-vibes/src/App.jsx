@@ -94,7 +94,7 @@ function App() {
               </PrivateRoute>} />
             <Route path="/dashboard" element={
               <PrivateRoute authenticated={authenticated}>
-                <WelcomeDashboard username={currentUser?.username || 'Guest'} />
+                <WelcomeDashboard username={currentUser?.name || 'Guest'} />
               </PrivateRoute>} />
             <Route path="/about" element={<div>About Page (Coming Soon)</div>} />
             <Route path="*" element={<NotFound />} />
