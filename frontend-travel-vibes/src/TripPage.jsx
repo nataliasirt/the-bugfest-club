@@ -5,7 +5,7 @@ const TripPage = () => {
   const location = useLocation();
   const { tripData, formData } = location.state || {};
 
-  if (!tripData) {
+  if (!tripData || !formData) {
     return (
       <div className="text-center mt-10">
         <h2 className="text-xl font-semibold">No trip data found.</h2>
@@ -15,33 +15,17 @@ const TripPage = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-10 bg-white shadow-md rounded-lg mt-10">
-      <h1 className="text-3xl font-bold mb-6">{tripData.tripTitle}</h1>
-      <p className="text-gray-600 mb-4">{tripData.description}</p>
-
-      <h2 className="text-xl font-semibold mt-6">Location:</h2>
-      <p>{tripData.location}</p>
-
-      <h2 className="text-xl font-semibold mt-6">Best Time to Visit:</h2>
-      <p>{tripData.bestTimeToVisit}</p>
-
-      <h2 className="text-xl font-semibold mt-6">Top Activities:</h2>
-      <ul className="list-disc list-inside">
-        {tripData.topActivities.map((activity, index) => (
-          <li key={index}>
-            <strong>{activity.name}:</strong> {activity.hook}
-          </li>
-        ))}
-      </ul>
-
-      <h2 className="text-xl font-semibold mt-6">Restaurant Recommendations:</h2>
-      <ul className="list-disc list-inside">
-        {tripData.restaurantRecommendations.map((restaurant, index) => (
-          <li key={index}>
-            <strong>{restaurant.name}:</strong> {restaurant.hook}
-          </li>
-        ))}
-      </ul>
+    <div className="p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg mt-10">
+      <h1 className="text-3xl font-bold mb-4">{tripData.tripTitle}</h1>
+      <p className="mb-2"><strong>From:</strong> {formData.startingLocation}</p>
+      <p className="mb-2"><strong>Budget:</strong> ${formData.budget}</p>
+      <p className="mb-2"><strong>Days:</strong> {formData.days}</p>
+      <p className="mb-2"><strong>Description:</strong> {tripData.description}</p>
+      <p className="mb-2"><strong>Location:</strong> {tripData.location}</p>
+      <p className="mb-2"><strong>Main Attraction:</strong> {tripData.mainAttraction}</p>
+      <p className="mb-2"><strong>Top Activity:</strong> {tripData.topActivity}</p>
+      <p className="mb-2"><strong>Best Time to Visit:</strong> {tripData.bestTimeToVisit}</p>
+      <p className="mb-2"><strong>Vibe-Inspired Spot:</strong> {tripData.vibeInspiration}</p>
     </div>
   );
 };
