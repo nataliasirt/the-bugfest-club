@@ -1,5 +1,6 @@
 package com.launchcode.liftoff.the.bugfest.club.controllers;
 
+import com.launchcode.liftoff.the.bugfest.club.models.TravelPlan;
 import com.launchcode.liftoff.the.bugfest.club.models.Trip;
 import com.launchcode.liftoff.the.bugfest.club.service.TripService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,36 +29,24 @@ public class TripController {
         this.tripService = tripService;
     }
 
-
     @PostMapping("/user/{userId}")
     public ResponseEntity<Trip> createTripForUser(@PathVariable Long userId, @RequestBody Trip trip) {
         log.info("Inside createTripForUser method in TripController class");
         Trip savedTrip = tripService.saveTripForUser(userId, trip);
         return ResponseEntity.ok(savedTrip);
     }
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Trip>> getTripsByUserId(@PathVariable Long userId) {
         List<Trip> trips = tripService.getTripsByUserId(userId);
         return ResponseEntity.ok(trips);
     }
 
-
-//
-//    @PostMapping("/trips")
-//    public ResponseEntity<String> createTrip(@RequestBody Trip trip) {
-//        return tripService.createTrip(trip); // Returning the ResponseEntity from the service
-//    }
-//
-//    @GetMapping("/trips")
-//    public Iterable<Trip> getAllTrips(){
-//        return tripService.getAllTrips();
-//    }
-//
-//
-//    @GetMapping("/locations")
-//    public List<Location> getLocationsByVibe(@RequestParam String vibe) {
-//        return tripService.getLocationsForTrip(vibe);
-//    }
+    @PostMapping("/tripPlan")
+    public ResponseEntity<TravelPlan> saveAIPlan(@RequestBody TravelPlan plan) {
+        TravelPlan savedPlan = tripService.saveAIPlan(plan);
+        return ResponseEntity.ok(savedPlan); // Return the saved TravelPlan (including Trip)
+    }
 
 
 }

@@ -1,7 +1,9 @@
 package com.launchcode.liftoff.the.bugfest.club.service;
 
+import com.launchcode.liftoff.the.bugfest.club.data.TravelPlanRepository;
 import com.launchcode.liftoff.the.bugfest.club.data.TripRepository;
 import com.launchcode.liftoff.the.bugfest.club.data.UserRepository;
+import com.launchcode.liftoff.the.bugfest.club.models.TravelPlan;
 import com.launchcode.liftoff.the.bugfest.club.models.Trip;
 import com.launchcode.liftoff.the.bugfest.club.models.User;
 import jakarta.transaction.Transactional;
@@ -19,13 +21,15 @@ public class TripService {
     @Autowired
     private final UserRepository userRepository;
 
+    @Autowired
+    private TravelPlanRepository travelPlanRepository;
+
 
     public TripService(TripRepository tripRepository, UserRepository userRepository) {
         this.tripRepository = tripRepository;
         this.userRepository = userRepository;
     }
 
-//
     @Transactional
     public Trip saveTripForUser(Long userId, Trip trip) {
         User user = userRepository.findById(userId)
@@ -39,43 +43,14 @@ public class TripService {
         return tripRepository.findByUserId(userId);
     }
 
-//    public ResponseEntity<String> createTrip(Trip trip) {
-//        // Check if the trip already exists
-//        if (tripRepository.existsByStartingLocationAndDaysAndVibe(
-//                trip.getStartingLocation(), trip.getDays(), trip.getVibe())) {
-//            // Return a ResponseEntity with status 409 Conflict and a message
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body("Trip details already exist.");
-//        }// Save the trip if no duplicate exists
-//        tripRepository.save(trip);
-//
-//        // Return a ResponseEntity with status 201 Created and success message
-//        return ResponseEntity.status(HttpStatus.CREATED).body("Trip created successfully!");
-//    }
-//
-//
-//
-//    public Iterable<Trip> getAllTrips(){
-//        return tripRepository.findAll();
-//    }
-//
-//
-//    public List<Location> getLocationsForTrip(String vibe) {
-//        Destination destination = destinationRepository.findByVibe(vibe);
-//        if (destination != null) {
-//            return destination.getLocations();
-//        }
-//        throw new RuntimeException("No locations found for the vibe: " + vibe);
-//    }
-//
-//    public Trip saveTripForUser(Trip trip, Long userId) {
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
-//        trip.setUser(user);
-//        return tripRepository.save(trip);
-//    }
+    public TravelPlan saveAIPlan(TravelPlan plan) {
+        if (plan.getTrip() != null && plan.getTrip().getId() == null) {
+            Trip savedTrip = tripRepository.save(plan.getTrip());
+            plan.setTrip(savedTrip); // Make sure the plan has a managed trip with ID
+        }
 
-//    public List<Trip> getTripsByUserId(Long userId) {
-//        return tripRepository.findByUserId(userId);
-//    }
+        return travelPlanRepository.save(plan);
+    }
+
 
 }

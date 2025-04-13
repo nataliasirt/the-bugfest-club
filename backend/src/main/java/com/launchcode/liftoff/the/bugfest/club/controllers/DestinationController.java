@@ -27,7 +27,6 @@ public class DestinationController {
         return destinationService.createDestination(destination);
     }
 
-
     @GetMapping
     public Iterable<Destination> getAllDestinations() {
         return destinationService.getAllDestinations();
@@ -47,10 +46,6 @@ public class DestinationController {
     public Destination updateDestination(@PathVariable long id, @RequestBody Destination editDestination) {
         return destinationService.updateDestinationById(id, editDestination);
     }
-
-
-
-
 
 
 }
