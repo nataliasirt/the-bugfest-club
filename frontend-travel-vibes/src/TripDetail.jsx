@@ -108,6 +108,15 @@ const TripDetail = () => {
                   <span className="mr-2">Share</span>
                 </button>
               </div>
+              <EmailShareButton url={currentPageUrl}>
+                <EmailIcon round={true}></EmailIcon>
+              </EmailShareButton>
+              <FacebookShareButton url={currentPageUrl}>
+                <FacebookIcon round={true}></FacebookIcon>
+              </FacebookShareButton>
+              <BlueskyShareButton url={currentPageUrl}>
+                <BlueskyIcon round={true}></BlueskyIcon>
+              </BlueskyShareButton>
             </div>
           </div>
         </div>
