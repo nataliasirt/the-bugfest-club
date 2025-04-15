@@ -17,7 +17,6 @@ import './App.css';
 
 import WelcomeDashboard from './components/DashBoard';
 import { toast } from 'react-toastify';
-import TripPage from "./TripPage";
 
 
 const PrivateRoute = ({ authenticated, children }) => {
