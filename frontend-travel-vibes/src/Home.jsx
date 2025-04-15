@@ -1,14 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import beachSunset from "./assets/images/beach-sunset.jpg";
 
 const FormContent = ({ isMobile }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
   return (
     <div
       className={`bg-white/95 backdrop-blur-sm rounded-[25px] border border-gray-200 shadow-lg p-${
@@ -41,19 +35,6 @@ const FormContent = ({ isMobile }) => {
             Create Trip ✨
           </button>
         </Link>
-        <label htmlFor="search" className="sr-only">
-          Search destinations
-        </label>
-        <input
-          id="search"
-          type="text"
-          placeholder="Search"
-          value={searchQuery}
-          onChange={handleSearch}
-          className={`w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 ${
-            isMobile ? "p-2" : "p-3 text-lg"
-          }`}
-        />
       </div>
     </div>
   );
