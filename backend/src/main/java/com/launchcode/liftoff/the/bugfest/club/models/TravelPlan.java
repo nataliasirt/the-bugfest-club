@@ -1,5 +1,6 @@
 package com.launchcode.liftoff.the.bugfest.club.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,5 +30,6 @@ public class TravelPlan {
     private String vibeInspiration;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "trip_id")
+    @JsonBackReference
     private Trip trip;
 }
