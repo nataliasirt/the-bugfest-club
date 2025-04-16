@@ -7,7 +7,7 @@ const app = express();
 
 // Create OpenAI client
 const openai = new OpenAI({
-  apiKey: "sk-proj-YOUR KEY HERE", // Replace with your actual OpenAI API key
+  apiKey: "", // Replace with your actual OpenAI API key
 });
 
 app.use(cors());
@@ -81,6 +81,6 @@ app.post("/api/trips", async (req, res) => {
   }
 });
 
-app.listen(8080, () => {
+app.listen(3001, () => {
   console.log("Server running on port 3001");
 });
