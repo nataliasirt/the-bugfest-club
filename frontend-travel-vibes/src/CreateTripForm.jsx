@@ -17,8 +17,8 @@ const CreateTripForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
   
     const data = {
       startingLocation: formData.startingLocation,
@@ -28,13 +28,12 @@ const CreateTripForm = () => {
     };
   
     try {
-      // 1. Send to OpenAI/Node backend
-      const aiResponse = await fetch("http://localhost:3031/api/trips/user/2", {
+      const aiResponse = await fetch("http://localhost:3031/api/trips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
   
       if (!aiResponse.ok) {
@@ -44,24 +43,31 @@ const CreateTripForm = () => {
       const aiData = await aiResponse.json();
       const travelData = aiData.data;
   
-      // 2. Save form data to Spring Boot backend
+      const springPayload = {
+        trip: data,
+        tripTitle: travelData.tripTitle,
+        location: travelData.location,
+        description: travelData.description,
+        bestTimeToVisit: travelData.bestTimeToVisit,
+        topActivity: travelData.topActivity,
+        mainAttraction: travelData.mainAttraction,
+        vibeInspiration: travelData.vibeInspiration,
+      };
+  
       const saveResponse = await fetch("http://localhost:8080/api/trips/tripPlan", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...formData,   // Include the original form data
-          ...travelData, // Include the generated travel plan data from OpenAI
-        }),
+        body: JSON.stringify(springPayload),
       });
   
       if (!saveResponse.ok) {
         throw new Error("Failed to save trip to backend.");
       }
   
-      const savedTrip = await saveResponse.json(); // Get the saved trip from the backend
-      setTrips([...trips, savedTrip]); // Update trips state with the saved trip
+      const savedTrip = await saveResponse.json();
+      setTrips((prevTrips) => [...prevTrips, savedTrip]);
   
       setFormData({
         startingLocation: "",
@@ -73,17 +79,18 @@ const CreateTripForm = () => {
       navigate("/trip", {
         state: {
           tripData: travelData,
-          formData: formData,
+          formData: data,
         },
       });
   
-      alert("Trip planned successfully!");
+      alert("Trip planned and saved successfully!");
     } catch (error) {
       console.error("Submission Error:", error);
       alert("Something went wrong. Please try again.");
     }
   };
-   return (
+  
+     return (
     <div className="max-w-4xl mx-auto overflow-hidden border bg-white">
       <div className="px-20 py-10 ">
         <div className="flex flex-col md:flex-row p-5 md:gap-20">

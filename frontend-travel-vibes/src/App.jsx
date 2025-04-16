@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, BrowserRouter as Router } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import AppHeader from './common/AppHeader';
 import Login from './user/login/Login';
 import Signup from './user/signup/Signup';
@@ -12,6 +12,7 @@ import { ACCESS_TOKEN } from './constants';
 import Home from "./Home";
 import CreateTripForm from "./CreateTripForm";
 import TripDetail from "./TripDetail";
+import Explore from './Explore';
 import NavBar from "./components/NavBar";
 import './App.css';
 
@@ -56,13 +57,15 @@ function App() {
     }
   };
 
+  const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem(ACCESS_TOKEN); // Remove the token from storage
-    setAuthenticated(false); // Update the state
-    setCurrentUser(null); // Clear the current user
+    localStorage.removeItem(ACCESS_TOKEN);
+    setAuthenticated(false);
+    setCurrentUser(null);
     toast.success("You're safely logged out!");
-    navigate('/login'); // Redirect to login page
+    navigate('/login');
   };
+  
 
   useEffect(() => {
     loadCurrentlyLoggedInUser();
@@ -73,16 +76,14 @@ function App() {
   }
 
   return (
-    <Router>
+
       <div className="flex flex-col min-h-screen">
         <NavBar authenticated={authenticated} onLogout={handleLogout} />
         <main className="flex-grow pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-trip" element={<CreateTripForm />} />
-
-
-            <Route path="/explore" element={<TripDetail />} />
+            <Route path="/explore" element={<Explore/>} />
             <Route path="/trip" element={<TripDetail />} />
             <Route path="/login" element={<Login authenticated={authenticated} />} />
             <Route path="/signup" element={<Signup authenticated={authenticated} />} />
@@ -101,7 +102,7 @@ function App() {
           </Routes>
         </main>
       </div>
-    </Router>
+
   );
 }
 
