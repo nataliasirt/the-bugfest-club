@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:5173")
 @RestController
-@RequestMapping("/api/trips")
+@RequestMapping("/api/trips/")
 @Slf4j
 public class TripController {
 
@@ -35,7 +35,15 @@ public class TripController {
         return tripService.createTrip(trip);
 }
 
+
+    @GetMapping("/tripPlan")
+    public Iterable<TravelPlan> getAllTripPlans() {
+        return tripService.getAllTrips();
+    }
+
+
    @PostMapping("/tripPlan")
+
     public ResponseEntity<TravelPlan> saveAIPlan(@RequestBody TravelPlan plan) {
         try {
             if (plan.getTrip() == null) {

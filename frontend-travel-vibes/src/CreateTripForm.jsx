@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 const CreateTripForm = () => {
   const [trips, setTrips] = useState([]);
   const [formData, setFormData] = useState({
@@ -9,40 +8,32 @@ const CreateTripForm = () => {
     vibe: "",
     days: "",
   });
-
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
     const data = {
       startingLocation: formData.startingLocation,
       budget: parseFloat(formData.budget),
       vibe: formData.vibe,
       days: parseInt(formData.days),
     };
-  
     try {
-      const aiResponse = await fetch("http://localhost:3031/api/trips", {
+      const aiResponse = await fetch("http://localhost:3001/api/trips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-  
       if (!aiResponse.ok) {
         throw new Error("AI travel plan generation failed.");
       }
-  
       const aiData = await aiResponse.json();
       const travelData = aiData.data;
-  
       const springPayload = {
         trip: data,
         tripTitle: travelData.tripTitle,
@@ -53,7 +44,6 @@ const CreateTripForm = () => {
         mainAttraction: travelData.mainAttraction,
         vibeInspiration: travelData.vibeInspiration,
       };
-  
       const saveResponse = await fetch("http://localhost:8080/api/trips/tripPlan", {
         method: "POST",
         headers: {
@@ -61,35 +51,29 @@ const CreateTripForm = () => {
         },
         body: JSON.stringify(springPayload),
       });
-  
       if (!saveResponse.ok) {
         throw new Error("Failed to save trip to backend.");
       }
-  
       const savedTrip = await saveResponse.json();
       setTrips((prevTrips) => [...prevTrips, savedTrip]);
-  
       setFormData({
         startingLocation: "",
         budget: "",
         vibe: "",
         days: "",
       });
-  
       navigate("/trip", {
         state: {
           tripData: travelData,
           formData: data,
         },
       });
-  
       alert("Trip planned and saved successfully!");
     } catch (error) {
       console.error("Submission Error:", error);
       alert("Something went wrong. Please try again.");
     }
   };
-  
      return (
     <div className="max-w-4xl mx-auto overflow-hidden border bg-white">
       <div className="px-20 py-10 ">
@@ -105,7 +89,6 @@ const CreateTripForm = () => {
               travelers dream about.
             </p>
           </div>
-
           {/* Right side - Form */}
           <div className="md:w-1/2">
             <div className="bg-gray-50 p-5 rounded-lg">
@@ -134,7 +117,6 @@ const CreateTripForm = () => {
                     <option value="Alaska_US">Alaska</option>
                   </select>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Budget ($):
@@ -152,7 +134,6 @@ const CreateTripForm = () => {
                     <option value="5000">Luxury</option>
                   </select>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Vibe:
@@ -172,7 +153,6 @@ const CreateTripForm = () => {
                     <option value="transformed_and_enlightened">Transformed & Enlightened</option>
                   </select>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Number of Days:
@@ -192,7 +172,6 @@ const CreateTripForm = () => {
                     <option value="10">Extended (10+ days)</option>
                   </select>
                 </div>
-
                 <div className="flex gap-3 mt-6">
                   <button
                     type="submit"
@@ -202,7 +181,6 @@ const CreateTripForm = () => {
                   </button>
                 </div>
               </form>
-
               {trips.length > 0 && (
                 <div className="mt-6 text-gray-800">
                   <h3 className="text-lg font-semibold mb-2">Your Trips</h3>
@@ -225,5 +203,4 @@ const CreateTripForm = () => {
     </div>
   );
 };
-
 export default CreateTripForm;

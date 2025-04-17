@@ -42,4 +42,9 @@ public class TripService {
         return travelPlanRepository.save(plan);
     }
 
+
+    public Iterable<TravelPlan> getAllTrips(){
+        return travelPlanRepository.findAll();
+    }
+
 }

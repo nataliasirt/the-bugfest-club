@@ -15,29 +15,21 @@ import TripDetail from "./TripDetail";
 import Explore from './Explore';
 import NavBar from "./components/NavBar";
 import './App.css';
-
 import WelcomeDashboard from './components/DashBoard';
 import { toast } from 'react-toastify';
-
-
 const PrivateRoute = ({ authenticated, children }) => {
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!authenticated) {
       console.log("User not authenticated, redirecting to login...");
       navigate('/login');
     }
   }, [authenticated, navigate]);
-
   return authenticated ? children : null;
-};
-
-function App() {
+};function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const loadCurrentlyLoggedInUser = () => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
@@ -56,7 +48,6 @@ function App() {
       setLoading(false);
     }
   };
-
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
@@ -65,18 +56,13 @@ function App() {
     toast.success("You're safely logged out!");
     navigate('/login');
   };
-  
-
   useEffect(() => {
     loadCurrentlyLoggedInUser();
   }, []);
-
   if (loading) {
     return <LoadingIndicator />;
   }
-
   return (
-
       <div className="flex flex-col min-h-screen">
         <NavBar authenticated={authenticated} onLogout={handleLogout} />
         <main className="flex-grow pt-16">
@@ -98,12 +84,9 @@ function App() {
               </PrivateRoute>} />
             <Route path="/about" element={<div>About Page (Coming Soon)</div>} />
             <Route path="*" element={<NotFound />} />
-              
           </Routes>
         </main>
       </div>
-
   );
 }
-
 export default App;
