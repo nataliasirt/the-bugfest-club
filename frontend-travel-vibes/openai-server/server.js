@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Check for OpenAI API key
 if (!process.env.OPENAI_API_KEY) {
-  console.error("❌ Missing OpenAI API key in environment variables");
+  console.error("Missing OpenAI API key in environment variables");
   process.exit(1);
 }
 
@@ -51,14 +51,14 @@ If you return anything other than a valid JSON object using this exact structure
 
     return JSON.parse(cleanResponse);
   } catch (error) {
-    console.error("❌ Error in generateTravelPlan:", error.message);
+    console.error("Error in generateTravelPlan:", error.message);
     throw error;
   }
 }
 
 // POST endpoint for generating travel plan
-app.post("/api/trips/user/2", async (req, res) => {
-  console.log("📥 Received new request to /api/trips/user/2");
+app.post("/api/trips", async (req, res) => {
+  console.log("Received new request to /api/trips");
 
   try {
     const { budget, days, startingLocation, vibe } = req.body;
@@ -71,14 +71,14 @@ app.post("/api/trips/user/2", async (req, res) => {
       vibe
     );
 
-    console.log("✅ Successfully generated travel plan");
+    console.log("Successfully generated travel plan");
 
     res.json({
       success: true,
       data: travelPlan,
     });
   } catch (error) {
-    console.error("❌ API Error:", error.message);
+    console.error("API Error:", error.message);
     res.status(500).json({
       success: false,
       error: "Failed to generate travel plan",
@@ -90,4 +90,4 @@ app.post("/api/trips/user/2", async (req, res) => {
 // Start server
 app.listen(3001, () => {
   console.log("🚀 Server running on port 3001");
-});
+}

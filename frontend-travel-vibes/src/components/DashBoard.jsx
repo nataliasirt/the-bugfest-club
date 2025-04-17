@@ -1,28 +1,34 @@
 import React, { useEffect, useState } from "react";
-// import { getSavedTrips } from '../util/APIUtils';  // Assuming this API exists
 import { ACCESS_TOKEN } from "../constants";
 import { useNavigate } from "react-router-dom";
 
 function WelcomeDashboard({ username }) {
   const [trips, setTrips] = useState([]);
+  const [logoutTriggered, setLogoutTriggered] = useState(false); // State to trigger re-render on logout
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
-    //   getSavedTrips(token)  // Assuming an API function to fetch trips
-    //     .then(response => {
-    //       setTrips(response);
-    //     })
-    //     .catch(error => {
-    //       console.error("Failed to fetch trips", error);
-    //     });
+      // getSavedTrips(token) // Call the API for trips
+      //   .then(response => {
+      //     setTrips(response);
+      //   })
+      //   .catch(error => {
+      //     console.error("Failed to fetch trips", error);
+      //   });
     }
   }, []);
 
+  useEffect(() => {
+    if (logoutTriggered) {
+      navigate("/"); // Redirect immediately after logout
+    }
+  }, [logoutTriggered, navigate]);
+
   const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
-    navigate("/");
+    setLogoutTriggered(true); // Trigger the state change that forces a re-render
   };
 
   return (
@@ -39,7 +45,9 @@ function WelcomeDashboard({ username }) {
         {trips.length > 0 ? (
           <ul>
             {trips.map((trip, index) => (
-              <li key={index}>{trip.destination} from {trip.startDate} to {trip.endDate}</li>
+              <li key={index}>
+                {trip.destination} from {trip.startDate} to {trip.endDate}
+              </li>
             ))}
           </ul>
         ) : (

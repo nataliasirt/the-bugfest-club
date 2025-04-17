@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 const CreateTripForm = () => {
   const [trips, setTrips] = useState([]);
   const [formData, setFormData] = useState({
@@ -9,84 +8,73 @@ const CreateTripForm = () => {
     vibe: "",
     days: "",
   });
-
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const data = {
       startingLocation: formData.startingLocation,
       budget: parseFloat(formData.budget),
       vibe: formData.vibe,
       days: parseInt(formData.days),
     };
-
     try {
-      // 1. Send to OpenAI/Node backend
       const aiResponse = await fetch("http://localhost:3001/api/trips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
-
       if (!aiResponse.ok) {
         throw new Error("AI travel plan generation failed.");
       }
-
       const aiData = await aiResponse.json();
       const travelData = aiData.data;
-
-      // 2. Save form data to Spring Boot backend
-      const saveResponse = await fetch(
-        "http://localhost:8080/api/trips/tripPlan",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formData, // Include the original form data
-            ...travelData, // Include the generated travel plan data from OpenAI
-          }),
-        }
-      );
-
+      const springPayload = {
+        trip: data,
+        tripTitle: travelData.tripTitle,
+        location: travelData.location,
+        description: travelData.description,
+        bestTimeToVisit: travelData.bestTimeToVisit,
+        topActivity: travelData.topActivity,
+        mainAttraction: travelData.mainAttraction,
+        vibeInspiration: travelData.vibeInspiration,
+      };
+      const saveResponse = await fetch("http://localhost:8080/api/trips/tripPlan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(springPayload),
+      });
       if (!saveResponse.ok) {
         throw new Error("Failed to save trip to backend.");
       }
-
-      const savedTrip = await saveResponse.json(); // Get the saved trip from the backend
-      setTrips([...trips, savedTrip]); // Update trips state with the saved trip
-
+      const savedTrip = await saveResponse.json();
+      setTrips((prevTrips) => [...prevTrips, savedTrip]);
       setFormData({
         startingLocation: "",
         budget: "",
         vibe: "",
         days: "",
       });
-
       navigate("/trip", {
         state: {
           tripData: travelData,
-          formData: formData,
+          formData: data,
         },
       });
-
-      alert("Trip planned successfully!");
+      alert("Trip planned and saved successfully!");
     } catch (error) {
       console.error("Submission Error:", error);
       alert("Something went wrong. Please try again.");
     }
   };
-  return (
+     return (
     <div className="max-w-4xl mx-auto overflow-hidden border bg-white">
       <div className="px-20 py-10 ">
         <div className="flex flex-col md:flex-row p-5 md:gap-20">
@@ -101,7 +89,6 @@ const CreateTripForm = () => {
               travelers dream about.
             </p>
           </div>
-
           {/* Right side - Form */}
           <div className="md:w-1/2">
             <div className="bg-gray-50 p-5 rounded-lg">
@@ -124,17 +111,12 @@ const CreateTripForm = () => {
                     <option value="Deep_South_US">Deep South</option>
                     <option value="Texas_Oklahoma_US">Texas & Oklahoma</option>
                     <option value="Rocky_Mountain_US">Rocky Mountain</option>
-                    <option value="California_Coast_US">
-                      California Coast
-                    </option>
-                    <option value="Pacific_Northwest_US">
-                      Pacific Northwest
-                    </option>
+                    <option value="California_Coast_US">California Coast</option>
+                    <option value="Pacific_Northwest_US">Pacific Northwest</option>
                     <option value="Hawaii_US">Hawaii</option>
                     <option value="Alaska_US">Alaska</option>
                   </select>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Budget ($):
@@ -152,7 +134,6 @@ const CreateTripForm = () => {
                     <option value="5000">Luxury</option>
                   </select>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Vibe:
@@ -165,20 +146,13 @@ const CreateTripForm = () => {
                     required
                   >
                     <option value=""></option>
-                    <option value="inspired_and_creative">
-                      Inspired & Creative
-                    </option>
+                    <option value="inspired_and_creative">Inspired & Creative</option>
                     <option value="refreshed">Refreshed</option>
-                    <option value="grounded_and_connected">
-                      Grounded & Connected
-                    </option>
+                    <option value="grounded_and_connected">Grounded & Connected</option>
                     <option value="accomplished">Accomplished</option>
-                    <option value="transformed_and_enlightened">
-                      Transformed & Enlightened
-                    </option>
+                    <option value="transformed_and_enlightened">Transformed & Enlightened</option>
                   </select>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Number of Days:
@@ -198,7 +172,6 @@ const CreateTripForm = () => {
                     <option value="10">Extended (10+ days)</option>
                   </select>
                 </div>
-
                 <div className="flex gap-3 mt-6">
                   <button
                     type="submit"
@@ -208,7 +181,6 @@ const CreateTripForm = () => {
                   </button>
                 </div>
               </form>
-
               {trips.length > 0 && (
                 <div className="mt-6 text-gray-800">
                   <h3 className="text-lg font-semibold mb-2">Your Trips</h3>
@@ -231,5 +203,4 @@ const CreateTripForm = () => {
     </div>
   );
 };
-
 export default CreateTripForm;

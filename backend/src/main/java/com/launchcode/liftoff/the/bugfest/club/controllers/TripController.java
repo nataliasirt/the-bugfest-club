@@ -5,6 +5,7 @@ import com.launchcode.liftoff.the.bugfest.club.models.Trip;
 import com.launchcode.liftoff.the.bugfest.club.service.TripService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,29 +30,34 @@ public class TripController {
         this.tripService = tripService;
     }
 
-    @PostMapping("/user/{userId}")
-    public ResponseEntity<Trip> createTripForUser(@PathVariable Long userId, @RequestBody Trip trip) {
-        log.info("Inside createTripForUser method in TripController class");
-        Trip savedTrip = tripService.saveTripForUser(userId, trip);
-        return ResponseEntity.ok(savedTrip);
-    }
+       @PostMapping
+       public Trip createTrip(@RequestBody Trip trip){
+        return tripService.createTrip(trip);
+}
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Trip>> getTripsByUserId(@PathVariable Long userId) {
-        List<Trip> trips = tripService.getTripsByUserId(userId);
-        return ResponseEntity.ok(trips);
-    }
 
     @GetMapping("/tripPlan")
     public Iterable<TravelPlan> getAllTripPlans() {
         return tripService.getAllTrips();
     }
 
-    @PostMapping("/tripPlan")
-    public ResponseEntity<TravelPlan> saveAIPlan(@RequestBody TravelPlan plan) {
-        TravelPlan savedPlan = tripService.saveAIPlan(plan);
-        return ResponseEntity.ok(savedPlan); // Return the saved TravelPlan (including Trip)
-    }
 
+   @PostMapping("/tripPlan")
+
+    public ResponseEntity<TravelPlan> saveAIPlan(@RequestBody TravelPlan plan) {
+        try {
+            if (plan.getTrip() == null) {
+                return ResponseEntity.badRequest().build(); // No Trip info provided
+            }
+
+            TravelPlan savedPlan = tripService.saveAIPlan(plan);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedPlan);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
+    }
 
 }
