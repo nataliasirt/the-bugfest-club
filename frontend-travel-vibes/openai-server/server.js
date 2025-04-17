@@ -89,5 +89,5 @@ app.post("/api/trips/user/2", async (req, res) => {
 
 // Start server
 app.listen(3001, () => {
-  console.log("🚀 Server running on port 3031");
+  console.log("🚀 Server running on port 3001");
 });
