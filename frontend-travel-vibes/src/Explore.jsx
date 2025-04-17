@@ -3,26 +3,26 @@ import { Link } from "react-router-dom";
 
 const Explore = () => {
   const [tripPlans, setTripPlans] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const fetchTripsPlans = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/trips/tripPlan", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "http://localhost:8080/api/trips/tripPlan"
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        console.log(response);
         const data = await response.json();
-        setTripPlans(data);
         console.log(data);
+        setTripPlans(data);
         setLoading(false);
       } catch (error) {
         console.error("Fetch error:", error);
+        setLoading(false);
       }
     };
     fetchTripsPlans();
@@ -47,7 +47,9 @@ const Explore = () => {
           <p>Try creating a trip again from the form.</p>
         </div>
       ) : (
-        tripPlans.map((tripPlan) => <div key={tripPlan.id}> </div>)
+        tripPlans.map((tripPlan) => (
+          <div key={tripPlan.id}> Trip Title: {tripPlan.tripTitle}</div>
+        ))
       )}
     </>
   );
