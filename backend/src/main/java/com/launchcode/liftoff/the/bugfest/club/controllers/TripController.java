@@ -42,6 +42,11 @@ public class TripController {
         return ResponseEntity.ok(trips);
     }
 
+    @GetMapping("/tripPlan")
+    public Iterable<TravelPlan> getAllTripPlans() {
+        return tripService.getAllTrips();
+    }
+
     @PostMapping("/tripPlan")
     public ResponseEntity<TravelPlan> saveAIPlan(@RequestBody TravelPlan plan) {
         TravelPlan savedPlan = tripService.saveAIPlan(plan);
