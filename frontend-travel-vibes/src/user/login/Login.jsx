@@ -9,7 +9,7 @@ import githubLogo from '../../img/github-logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = ({ authenticated }) => {
+const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,10 +22,6 @@ const Login = ({ authenticated }) => {
     }
   }, [location, navigate]);
 
-  if (authenticated) {
-    navigate("/dashboard");
-  }
-
   return (
     <div className="login-container">
       <div className="login-content">
@@ -34,7 +30,7 @@ const Login = ({ authenticated }) => {
         <div className="or-separator">
           <span className="or-text">OR</span>
         </div>
-        <LoginForm />
+        <LoginForm navigate={navigate} />
         <span className="signup-link">
           New user? <Link to="/signup">Sign up!</Link>
         </span>
@@ -60,8 +56,7 @@ const SocialLogin = () => {
   );
 };
 
-const LoginForm = () => {
-  const navigate = useNavigate();
+const LoginForm = ({ navigate }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -72,12 +67,14 @@ const LoginForm = () => {
       email,
       password
     };
+
     console.log("Sending:", JSON.stringify(loginRequest));
     login(loginRequest)
       .then(response => {
+        // Store the access token and navigate to dashboard
         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
         toast.success("You're successfully logged in!");
-        navigate("/dashboard");
+        navigate("/dashboard"); // Direct navigation after login
       })
       .catch(error => {
         toast.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
