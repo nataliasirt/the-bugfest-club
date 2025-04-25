@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import './Login.css';
-import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../../constants';
-import { login } from '../../util/APIUtils';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import fbLogo from '../../img/fb-logo.png';
-import googleLogo from '../../img/google-logo.png';
-import githubLogo from '../../img/github-logo.png';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import "./Login.css";
+import {
+  GOOGLE_AUTH_URL,
+  FACEBOOK_AUTH_URL,
+  GITHUB_AUTH_URL,
+  ACCESS_TOKEN,
+} from "../../constants";
+import { login } from "../../util/APIUtils";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import fbLogo from "../../img/fb-logo.png";
+import googleLogo from "../../img/google-logo.png";
+import githubLogo from "../../img/github-logo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -57,27 +62,29 @@ const SocialLogin = () => {
 };
 
 const LoginForm = ({ navigate }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const loginRequest = {
       email,
-      password
+      password,
     };
 
     console.log("Sending:", JSON.stringify(loginRequest));
     login(loginRequest)
-      .then(response => {
-        // Store the access token and navigate to dashboard
+      .then((response) => {
         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
         toast.success("You're successfully logged in!");
         navigate("/dashboard"); // Direct navigation after login
       })
-      .catch(error => {
-        toast.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
+      .catch((error) => {
+        toast.error(
+          (error && error.message) ||
+            "Oops! Something went wrong. Please try again!"
+        );
       });
   };
 
