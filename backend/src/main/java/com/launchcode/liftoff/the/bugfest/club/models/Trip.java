@@ -28,8 +28,9 @@ public class Trip {
     private String budget;
     private String vibe;
     private int days;
+    private boolean favorite;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id") // The column in the 'trip' table that references 'user'
+    @JoinColumn(name = "user_id")
     private User user;
     @OneToOne(mappedBy = "trip", cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JsonManagedReference
