@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function WelcomeDashboard({ username }) {
   const [trips, setTrips] = useState([]);
-  const [logoutTriggered, setLogoutTriggered] = useState(false); // State to trigger re-render on logout
+  const [logoutTriggered, setLogoutTriggered] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
