@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function TripForm() {
   const [startingLocation, setStartingLocation] = useState("");
   const [budget, setBudget] = useState(0);
   const [vibe, setVibe] = useState("");
   const [days, setDays] = useState(1);
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = {
+    const formData = {
       startingLocation,
       budget,
       vibe,
@@ -18,14 +22,16 @@ function TripForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
       if (response.ok) {
-        const responseData = await response.text();
-        console.log("Success:", responseData);
+        const tripData = await response.json(); // Expect JSON response
+        console.log("Success:", tripData);
         alert("Trip details sent successfully!");
+        // Navigate to TripDetail with formData and tripData
+        navigate("/trip-detail", { state: { tripData, formData } });
       } else {
-        console.error("Error:", response.status);
+        console.error("Error:", response.status, await response.text());
         alert("Failed to send trip details.");
       }
     } catch (error) {
@@ -33,6 +39,7 @@ function TripForm() {
       alert("An error occurred while sending trip details.");
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -75,4 +82,5 @@ function TripForm() {
     </form>
   );
 }
+
 export default TripForm;
