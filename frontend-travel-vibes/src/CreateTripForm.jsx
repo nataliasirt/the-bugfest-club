@@ -22,52 +22,32 @@ const CreateTripForm = () => {
 
         const data = {
             startingLocation: formData.startingLocation,
-            budget: parseFloat(formData.budget),
+            budget: formData.budget,
             vibe: formData.vibe,
             days: parseInt(formData.days),
-            travelCompanions: 1 // Default value
+            travelCompanions: 1
         };
 
         try {
             console.log("Sending to Node.js backend:", JSON.stringify(data, null, 2));
-            const aiResponse = await fetch("http://localhost:3001/api/trips", {
+            const response = await fetch("http://localhost:3001/api/trips", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
             });
-            if (!aiResponse.ok) {
-                const errorText = await aiResponse.text();
-                throw new Error(`AI backend error: ${aiResponse.status} - ${errorText}`);
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Node.js backend error: ${response.status} - ${errorText}`);
             }
-            const aiData = await aiResponse.json();
-            console.log("AI Response:", JSON.stringify(aiData, null, 2));
-            const travelData = aiData.data || {};
+            const responseData = await response.json();
+            console.log("Node.js Response:", JSON.stringify(responseData, null, 2));
 
-            const springPayload = {
-                trip: data,
-                tripTitle: travelData.tripTitle || "Default Title",
-                location: travelData.location || "Unknown Location",
-                description: travelData.description || "No description available",
-                bestTimeToVisit: travelData.bestTimeToVisit || "Anytime",
-                topActivity: travelData.topActivity || "No activity specified",
-                mainAttraction: travelData.mainAttraction || "No attraction specified",
-                vibeInspiration: travelData.vibeInspiration || "No inspiration specified"
+            const savedTrip = {
+                startingLocation: data.startingLocation,
+                budget: data.budget,
+                vibe: data.vibe,
+                days: data.days
             };
-            console.log("Sending to Spring Boot backend:", JSON.stringify(springPayload, null, 2));
-
-            const saveResponse = await fetch("http://localhost:8080/api/trips/tripPlan", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(springPayload)
-            });
-            if (!saveResponse.ok) {
-                const errorText = await saveResponse.text();
-                console.error("Spring Boot Response:", errorText);
-                throw new Error(`Spring Boot backend error: ${saveResponse.status} - ${errorText}`);
-            }
-            const savedTrip = await saveResponse.json();
-            console.log("Saved Trip:", JSON.stringify(savedTrip, null, 2));
-
             setTrips((prevTrips) => [...prevTrips, savedTrip]);
 
             setFormData({
@@ -79,13 +59,25 @@ const CreateTripForm = () => {
 
             navigate("/trip", {
                 state: {
-                    tripData: travelData,
-                    formData: data,
+                    tripData: responseData.data,
+                    travelPlanId: responseData.travelPlanId,
+                    tripId: responseData.tripId,
+                    formData: {
+                        startingLocation: data.startingLocation,
+                        budget: data.budget,
+                        vibe: data.vibe,
+                        days: data.days.toString(),
+                        favorite: false
+                    },
                     savedTrip: savedTrip
                 }
             });
 
-            alert("Trip planned and saved successfully!");
+            if (responseData.warning) {
+                alert(`Trip planned successfully, but saving to backend failed: ${responseData.springError.error || responseData.springError}`);
+            } else {
+                alert("Trip planned and saved successfully!");
+            }
         } catch (error) {
             console.error("Submission Error:", error.message);
             alert(`Failed to create trip: ${error.message}`);
